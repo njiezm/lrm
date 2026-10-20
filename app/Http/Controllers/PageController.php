@@ -70,7 +70,10 @@ class PageController extends Controller
 
     public function robots(): Response
     {
-        return response("User-agent: *\nDisallow:\n\nSitemap: ".route('sitemap.xml')."\n")
+        // Démo (SITE_NOINDEX=true) : tout le site est fermé aux moteurs de recherche
+        $disallow = config('site.noindex') ? '/' : '';
+
+        return response("User-agent: *\nDisallow: {$disallow}\n\nSitemap: ".route('sitemap.xml')."\n")
             ->header('Content-Type', 'text/plain');
     }
 }

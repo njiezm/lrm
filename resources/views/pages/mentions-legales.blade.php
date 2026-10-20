@@ -25,7 +25,7 @@
             <p>Conception : <strong>NJIEZM.FR</strong> — N’jie ZAMON, développeur web, Le Robert, Martinique — <a href="https://www.njiezm.fr" target="_blank" rel="noopener">www.njiezm.fr</a> — contact@njiezm.fr — +596 696 70 39 22.</p>
 
             <h2>Hébergement</h2>
-            <p>[À compléter : nom, adresse et téléphone de l’hébergeur retenu lors de la mise en ligne.]</p>
+            <p>o2switch — Chemin des Pardiaux, 63000 Clermont-Ferrand — capital de 100 000 € — SIRET 510 909 807 00032 — 04 44 44 60 40 — <a href="https://www.o2switch.fr" target="_blank" rel="noopener">www.o2switch.fr</a>.</p>
 
             <h2>Propriété intellectuelle</h2>
             <p>Les textes, photographies, logos et éléments graphiques du site sont la propriété de la société EGE-MM ou de leurs auteurs, sauf mention contraire. Toute reproduction sans autorisation est interdite.</p>

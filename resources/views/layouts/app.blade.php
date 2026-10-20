@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{{ $fullTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
+    @if (config('site.noindex'))<meta name="robots" content="noindex, nofollow">@endif
     <link rel="canonical" href="{{ url()->current() }}">
     <meta name="theme-color" content="#062b4d">
 

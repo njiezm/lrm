@@ -112,4 +112,14 @@ class SiteTest extends TestCase
         }
         $this->post('/reservation', $this->guard() + $this->payload())->assertStatus(429);
     }
+
+    public function test_demo_noindex_ferme_le_site_aux_moteurs(): void
+    {
+        $this->get('/robots.txt')->assertSee("Disallow: \n", false);
+        $this->get('/')->assertDontSee('noindex', false);
+
+        config(['site.noindex' => true]);
+        $this->get('/robots.txt')->assertSee('Disallow: /', false);
+        $this->get('/')->assertSee('<meta name="robots" content="noindex, nofollow">', false);
+    }
 }

@@ -14,6 +14,8 @@ return [
 
     'name' => 'Le Roi Mongin',
     'tagline' => 'Excursions en mer aux îlets du François',
+    // Version de démonstration : ne pas indexer (SITE_NOINDEX=true dans le .env)
+    'noindex' => (bool) env('SITE_NOINDEX', false),
     'description' => 'Journées en bateau à la Baignoire de Joséphine et sur l’îlet Oscar au François (Martinique) : baptême du rhum les pieds dans l’eau, déjeuner créole sur l’îlet, animation. Le pionnier des îlets depuis plus de 40 ans.',
     'founded_text' => 'plus de 40 ans',
 
