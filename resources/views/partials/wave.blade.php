@@ -1,0 +1,1 @@
+<svg viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path fill="currentColor" d="M0 52c120 22 240 33 360 26S600 38 720 36s240 22 360 30 240-4 360-26v50H0z" opacity=".45"/><path fill="currentColor" d="M0 64c160 18 300 22 440 10S700 40 860 46s300 32 420 30 160-10 160-10v24H0z"/></svg>

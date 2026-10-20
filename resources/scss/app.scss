@@ -1,0 +1,370 @@
+@import 'variables';
+@import 'bootstrap/scss/bootstrap';
+
+// ---------------------------------------------------------------
+// Base
+// ---------------------------------------------------------------
+:root {
+    --rm-deep: #{$rm-deep};
+    --rm-ocean: #{$rm-ocean};
+    --rm-lagoon: #{$rm-lagoon};
+    --rm-sun: #{$rm-sun};
+    --header-h: 76px;
+}
+
+html { scroll-padding-top: calc(var(--header-h) + 1rem); }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; padding-top: var(--header-h); }
+h1, h2, h3, .h1, .h2, .display-4, .display-5 { letter-spacing: -.02em; font-variation-settings: 'wdth' 90; }
+img[height] { height: auto; }
+::selection { background: rgba($rm-lagoon, .35); }
+:focus-visible { outline: 3px solid $rm-sun-dark; outline-offset: 3px; }
+
+.skip-link {
+    position: absolute; left: 1rem; top: -100px; z-index: 2000;
+    background: $rm-deep; color: #fff; padding: .6rem 1rem; border-radius: .5rem;
+    &:focus { top: 1rem; color: #fff; }
+}
+
+.font-display { font-family: $font-family-display; }
+.text-ocean { color: $rm-ocean !important; }
+.text-deep { color: $rm-deep !important; }
+.text-sun { color: $rm-sun !important; }
+.bg-deep { background-color: $rm-deep !important; }
+.bg-foam { background-color: $rm-foam !important; }
+.bg-sand { background-color: $rm-sand !important; }
+.max-w-640 { max-width: 640px; }
+.max-w-760 { max-width: 760px; }
+.fw-800 { font-weight: 800; }
+
+.section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
+.section-sm { padding-block: clamp(2.5rem, 5vw, 4rem); }
+.section-head { max-width: 720px; margin-bottom: 2.5rem; }
+.section-head.text-center { margin-inline: auto; }
+
+.eyebrow {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .8rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    color: $rm-ocean; margin-bottom: .85rem;
+    &::before { content: ''; width: 1.6rem; height: 3px; border-radius: 3px; background: $rm-lagoon; }
+    &.on-dark { color: $rm-sun; &::before { background: $rm-sun; } }
+}
+
+// Mot souligné d'une vague
+.wave-underline {
+    position: relative; white-space: nowrap;
+    background: linear-gradient(transparent 68%, rgba($rm-sun, .75) 68%, rgba($rm-sun, .75) 92%, transparent 92%);
+}
+
+// ---------------------------------------------------------------
+// Boutons
+// ---------------------------------------------------------------
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; }
+.btn-sun {
+    @include button-variant($rm-sun, $rm-sun, $rm-deep, $rm-sun-dark, $rm-sun-dark, $rm-deep);
+    box-shadow: 0 10px 24px -10px rgba($rm-sun-dark, .9);
+}
+.btn-whatsapp {
+    @include button-variant(#1f8f4e, #1f8f4e, #fff, #187a41, #187a41, #fff);
+}
+.btn-glass {
+    color: #fff; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.55);
+    backdrop-filter: blur(6px);
+    &:hover, &:focus-visible { background: rgba(255,255,255,.26); color: #fff; }
+}
+.link-arrow {
+    font-weight: 700; display: inline-flex; align-items: center; gap: .35rem;
+    i { transition: transform .2s ease; }
+    &:hover i { transform: translateX(4px); }
+}
+
+// ---------------------------------------------------------------
+// Header
+// ---------------------------------------------------------------
+.site-header {
+    position: fixed; inset: 0 0 auto 0; z-index: 1030; height: var(--header-h);
+    background: rgba(255,255,255,.94); backdrop-filter: saturate(160%) blur(10px);
+    border-bottom: 1px solid transparent; transition: box-shadow .25s ease, border-color .25s ease;
+    &.is-scrolled { box-shadow: 0 8px 30px -18px rgba($rm-deep, .45); border-color: $rm-line; }
+    .brand img { height: 54px; width: auto; }
+    // Bouton du menu mobile : carré arrondi de 44 px (il s'étirait en ovale vertical)
+    button[data-bs-toggle="offcanvas"] {
+        width: 44px; height: 44px; padding: 0; flex: 0 0 auto; align-self: center;
+        border-radius: 12px; line-height: 1;
+        .bi { font-size: 1.5rem !important; }
+    }
+    // .navbar-nav hors .navbar-expand-* remet --bs-nav-link-padding-x à 0 : on fixe l'espacement ici
+    .navbar-nav { gap: .25rem; }
+    .nav-link {
+        font-weight: 600; color: $rm-deep; position: relative;
+        padding-inline: .9rem; white-space: nowrap;
+        &::after {
+            content: ''; position: absolute; left: .9rem; right: .9rem; bottom: .2rem; height: 3px; border-radius: 3px;
+            background: $rm-lagoon; transform: scaleX(0); transition: transform .2s ease;
+        }
+        &:hover::after, &.active::after { transform: scaleX(1); }
+        &.active { color: $rm-ocean; }
+    }
+}
+.header-phone { font-weight: 700; color: $rm-deep; white-space: nowrap; }
+.offcanvas .nav-link { font-size: 1.25rem; font-weight: 700; color: $rm-deep; padding-block: .7rem; border-bottom: 1px solid $rm-line; }
+.offcanvas .nav-link.active { color: $rm-ocean; }
+
+// ---------------------------------------------------------------
+// Hero accueil
+// ---------------------------------------------------------------
+.hero {
+    position: relative; isolation: isolate; color: #fff;
+    min-height: min(calc(100svh - var(--header-h)), 860px); display: flex; align-items: flex-end;
+    padding-block: 5rem 7.5rem;
+    .hero-bg { position: absolute; inset: 0; z-index: -2; img { width: 100%; height: 100%; object-fit: cover; } }
+    &::before {
+        content: ''; position: absolute; inset: 0; z-index: -1;
+        background:
+            linear-gradient(180deg, rgba($rm-deep, .15) 0%, rgba($rm-deep, .05) 35%, rgba($rm-deep, .78) 100%),
+            linear-gradient(90deg, rgba($rm-deep, .55) 0%, transparent 65%);
+    }
+    h1 { color: #fff; font-size: clamp(2.5rem, 7vw, 4.9rem); line-height: .98; text-shadow: 0 2px 30px rgba(0,0,0,.25); }
+    .lead { font-size: clamp(1.08rem, 2.2vw, 1.3rem); max-width: 600px; color: rgba(255,255,255,.95); }
+    .hero-credit { position: absolute; right: .75rem; bottom: 4.2rem; font-size: .7rem; color: rgba(255,255,255,.8); }
+}
+.hero-chips {
+    display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; list-style: none;
+    li { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(6px);
+         border-radius: 50rem; padding: .35rem .85rem; font-size: .92rem; font-weight: 600; }
+}
+.wave-bottom { position: absolute; left: 0; right: 0; bottom: -1px; line-height: 0; color: #fff; z-index: 0;
+    svg { width: 100%; height: clamp(40px, 7vw, 90px); display: block; } }
+.wave-top { line-height: 0; svg { width: 100%; height: clamp(36px, 6vw, 80px); display: block; } }
+
+// Petit module de réservation rapide
+.quick-book {
+    position: relative; z-index: 2; margin-top: -4.5rem;
+    background: #fff; border-radius: $border-radius-lg; padding: 1.25rem;
+    box-shadow: 0 30px 60px -30px rgba($rm-deep, .45), 0 0 0 1px rgba($rm-deep, .04);
+    .form-label { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: $rm-muted; margin-bottom: .3rem; }
+    @include media-breakpoint-up(lg) { padding: 1.5rem 1.75rem; }
+}
+
+// ---------------------------------------------------------------
+// Bandeau page intérieure
+// ---------------------------------------------------------------
+.page-hero {
+    position: relative; isolation: isolate; color: #fff; padding-block: clamp(4rem, 10vw, 7rem) clamp(5rem, 10vw, 8rem);
+    background: $rm-deep;
+    .page-hero-bg { position: absolute; inset: 0; z-index: -2; img { width: 100%; height: 100%; object-fit: cover; } }
+    &::before { content: ''; position: absolute; inset: 0; z-index: -1;
+        background: linear-gradient(100deg, rgba($rm-deep, .88) 0%, rgba($rm-deep, .55) 55%, rgba($rm-deep, .25) 100%); }
+    h1 { color: #fff; font-size: clamp(2.2rem, 5.5vw, 3.8rem); }
+    .lead { color: rgba(255,255,255,.92); max-width: 640px; }
+    .breadcrumb { --bs-breadcrumb-divider-color: rgba(255,255,255,.7); --bs-breadcrumb-item-active-color: rgba(255,255,255,.85); font-size: .9rem;
+        a { color: #fff; } }
+}
+
+// ---------------------------------------------------------------
+// Cartes excursions
+// ---------------------------------------------------------------
+.excursion-card {
+    height: 100%; display: flex; flex-direction: column; overflow: hidden; background: #fff;
+    border-radius: $border-radius-lg; box-shadow: 0 18px 40px -26px rgba($rm-deep, .55), 0 0 0 1px rgba($rm-deep, .05);
+    transition: transform .25s ease, box-shadow .25s ease;
+    &:hover { transform: translateY(-4px); box-shadow: 0 28px 50px -26px rgba($rm-deep, .6), 0 0 0 1px rgba($rm-deep, .05); }
+    .media { position: relative; aspect-ratio: 4 / 3; overflow: hidden;
+        img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; } }
+    &:hover .media img { transform: scale(1.05); }
+    .price-badge {
+        position: absolute; right: .9rem; bottom: .9rem; background: $rm-sun; color: $rm-deep; font-weight: 800;
+        border-radius: 50rem; padding: .35rem .9rem; font-size: .95rem; box-shadow: 0 6px 16px -6px rgba(0,0,0,.4);
+        small { font-weight: 600; font-size: .75rem; }
+    }
+    .kicker { position: absolute; left: .9rem; top: .9rem; background: rgba($rm-deep, .78); color: #fff; font-size: .75rem;
+        font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border-radius: 50rem; padding: .3rem .75rem; }
+    .body { padding: 1.4rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    h3 a { color: $rm-deep; text-decoration: none; &::after { content: ''; position: absolute; inset: 0; } }
+    .meta { color: $rm-muted; font-size: .92rem; font-weight: 600; }
+    .actions { margin-top: auto; position: relative; z-index: 1; }
+}
+.check-list { list-style: none; padding: 0; margin: 0;
+    li { position: relative; padding-left: 1.7rem; margin-bottom: .45rem; }
+    li::before { content: '\F26E'; font-family: 'bootstrap-icons'; position: absolute; left: 0; top: .02rem; color: $rm-lagoon; font-weight: 700; font-size: 1.1rem; }
+}
+
+// ---------------------------------------------------------------
+// Pourquoi nous
+// ---------------------------------------------------------------
+.why-card {
+    height: 100%; padding: 1.6rem; border-radius: $border-radius-lg; background: #fff;
+    box-shadow: 0 0 0 1px $rm-line;
+    .icon { width: 3.25rem; height: 3.25rem; border-radius: 1rem; display: grid; place-items: center; font-size: 1.5rem;
+        background: $rm-lagoon-light; color: $rm-ocean; margin-bottom: 1rem; }
+    h3 { font-size: 1.2rem; }
+    p { color: $rm-muted; margin: 0; }
+    &.featured { background: $rm-deep; color: #fff; box-shadow: none;
+        h3 { color: #fff; } p { color: rgba(255,255,255,.85); }
+        .icon { background: $rm-sun; color: $rm-deep; } }
+}
+
+// ---------------------------------------------------------------
+// Programme (timeline)
+// ---------------------------------------------------------------
+.timeline { list-style: none; padding: 0; margin: 0; position: relative;
+    &::before { content: ''; position: absolute; left: 1.15rem; top: .5rem; bottom: .5rem; width: 3px; border-radius: 3px;
+        background: linear-gradient($rm-lagoon, $rm-sky, $rm-sun); }
+    li { position: relative; padding-left: 3.4rem; padding-bottom: 1.6rem; }
+    li:last-child { padding-bottom: 0; }
+    .dot { position: absolute; left: 0; top: 0; width: 2.35rem; height: 2.35rem; border-radius: 50%; background: #fff;
+        border: 3px solid $rm-lagoon; display: grid; place-items: center; color: $rm-ocean; font-size: 1rem; }
+    .time { display: inline-block; font-weight: 800; color: $rm-ocean; font-size: .85rem; letter-spacing: .05em; text-transform: uppercase; }
+    h3 { font-size: 1.15rem; margin: .1rem 0 .3rem; }
+    p { margin: 0; color: $rm-muted; }
+}
+.on-dark .timeline { .dot { background: $rm-deep; } p { color: rgba(255,255,255,.8); } h3 { color: #fff; } .time { color: $rm-sun; } }
+
+// ---------------------------------------------------------------
+// Récit / histoire
+// ---------------------------------------------------------------
+.story-media { position: relative;
+    img { border-radius: $border-radius-xl; }
+    .story-badge { position: absolute; left: -0.5rem; bottom: -1.25rem; background: $rm-sun; color: $rm-deep; border-radius: 1.25rem;
+        padding: 1rem 1.25rem; font-family: $font-family-display; font-weight: 800; line-height: 1.05; box-shadow: 0 18px 30px -16px rgba($rm-deep, .6);
+        strong { display: block; font-size: 2.2rem; } span { font-size: .9rem; } }
+}
+
+// ---------------------------------------------------------------
+// Mosaïque photos + galerie
+// ---------------------------------------------------------------
+.mosaic { display: grid; gap: .75rem; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px;
+    @include media-breakpoint-up(md) { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; }
+    a { position: relative; display: block; overflow: hidden; border-radius: $border-radius; }
+    img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    a:hover img { transform: scale(1.06); }
+    .tall { grid-row: span 2; }
+    .wide { grid-column: span 2; }
+}
+.gallery-filters { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center;
+    .btn { --bs-btn-padding-y: .5rem; --bs-btn-padding-x: 1.1rem; --bs-btn-font-size: .95rem; }
+    .btn[aria-pressed="true"] { background: $rm-deep; color: #fff; border-color: $rm-deep; }
+}
+.gallery-grid { columns: 2 160px; column-gap: .75rem;
+    @include media-breakpoint-up(md) { columns: 3 240px; }
+    @include media-breakpoint-up(xl) { columns: 4 240px; }
+    figure { break-inside: avoid; margin: 0 0 .75rem; }
+    button { display: block; width: 100%; padding: 0; border: 0; background: none; border-radius: $border-radius; overflow: hidden; cursor: zoom-in; }
+    img { width: 100%; display: block; transition: transform .5s ease; }
+    button:hover img { transform: scale(1.04); }
+    [hidden] { display: none; }
+}
+.lightbox { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 94vh; overflow: visible;
+    &::backdrop { background: rgba(3, 20, 36, .92); }
+    img { max-width: 96vw; max-height: 82vh; border-radius: .75rem; display: block; margin-inline: auto; }
+    figcaption { color: #fff; text-align: center; margin-top: .75rem; font-size: .95rem; }
+    .lb-btn { position: fixed; z-index: 2; width: 3rem; height: 3rem; border-radius: 50%; border: 0; background: rgba(255,255,255,.15);
+        color: #fff; font-size: 1.4rem; display: grid; place-items: center; &:hover { background: rgba(255,255,255,.3); } }
+    .lb-close { top: 1rem; right: 1rem; }
+    .lb-prev { left: .75rem; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: .75rem; top: 50%; transform: translateY(-50%); }
+}
+
+// ---------------------------------------------------------------
+// Infos clés, tarifs, FAQ
+// ---------------------------------------------------------------
+.info-strip { display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr);
+    @include media-breakpoint-up(lg) { grid-template-columns: repeat(4, 1fr); }
+    .item { display: flex; gap: .85rem; align-items: flex-start; }
+    i { font-size: 1.6rem; color: $rm-lagoon; line-height: 1; }
+    strong { display: block; color: $rm-deep; font-family: $font-family-display; }
+    span { font-size: .93rem; color: $rm-muted; }
+}
+.price-table { border-radius: $border-radius-lg; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px $rm-line;
+    .row-price { display: flex; justify-content: space-between; gap: 1rem; padding: .85rem 1.2rem; border-bottom: 1px dashed $rm-line;
+        &:last-child { border-bottom: 0; } }
+    .p { font-weight: 800; color: $rm-deep; white-space: nowrap; }
+    .head { background: $rm-deep; color: #fff; padding: 1rem 1.2rem; font-family: $font-family-display; font-weight: 700; }
+}
+.sticky-aside { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+.menu-chips { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; padding: 0;
+    li { background: $rm-sand; border: 1px solid #f3e2bf; border-radius: 50rem; padding: .3rem .8rem; font-size: .92rem; } }
+.note-todo { background: #fff4d6; border-left: 4px solid $rm-sun-dark; padding: .75rem 1rem; border-radius: .5rem; font-size: .93rem; }
+.accordion-button { font-weight: 700; font-family: $font-family-display; font-size: 1.08rem; }
+.map-frame { border: 0; width: 100%; height: 380px; border-radius: $border-radius-lg; display: block; background: $rm-foam; }
+
+// ---------------------------------------------------------------
+// Bandeau d'appel à l'action
+// ---------------------------------------------------------------
+.cta-band { position: relative; isolation: isolate; overflow: hidden; color: #fff; border-radius: $border-radius-xl;
+    padding: clamp(2.25rem, 6vw, 4rem); background: $rm-ocean;
+    .cta-bg { position: absolute; inset: 0; z-index: -2; img { width: 100%; height: 100%; object-fit: cover; } }
+    &::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, rgba($rm-deep, .92), rgba($rm-ocean, .7)); }
+    h2 { color: #fff; }
+    p { color: rgba(255,255,255,.9); }
+}
+
+// ---------------------------------------------------------------
+// Formulaire de réservation
+// ---------------------------------------------------------------
+.booking-card { background: #fff; border-radius: $border-radius-xl; padding: clamp(1.25rem, 4vw, 2.5rem);
+    box-shadow: 0 30px 60px -36px rgba($rm-deep, .55), 0 0 0 1px $rm-line; }
+.stepper { display: flex; align-items: stretch; border: 1px solid $input-border-color; border-radius: .8rem; overflow: hidden;
+    button { border: 0; background: $rm-foam; width: 3rem; font-size: 1.25rem; color: $rm-ocean; &:hover { background: $rm-lagoon-light; } }
+    input { border: 0; text-align: center; font-weight: 700; border-radius: 0; -moz-appearance: textfield;
+        &::-webkit-outer-spin-button, &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; } }
+}
+.hp-field { position: absolute !important; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.contact-tile { display: flex; gap: 1rem; align-items: center; padding: 1rem 1.2rem; border-radius: 1rem; background: #fff;
+    box-shadow: 0 0 0 1px $rm-line; color: $rm-deep; text-decoration: none; font-weight: 600;
+    i { font-size: 1.5rem; width: 2.75rem; height: 2.75rem; border-radius: .8rem; display: grid; place-items: center; background: $rm-lagoon-light; color: $rm-ocean; flex-shrink: 0; }
+    small { display: block; color: $rm-muted; font-weight: 500; }
+    &:hover { box-shadow: 0 0 0 2px $rm-lagoon; text-decoration: none; }
+}
+
+// ---------------------------------------------------------------
+// Pied de page
+// ---------------------------------------------------------------
+.site-footer { background: $rm-deep; color: rgba(255,255,255,.82); padding-top: 0;
+    a { color: #fff; }
+    h2 { color: #fff; font-size: 1rem; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 1rem; }
+    .footer-logo { background: #fff; border-radius: 1rem; padding: .4rem .7rem; display: inline-block; img { height: 64px; width: auto; } }
+    .social a { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: inline-grid; place-items: center; background: rgba(255,255,255,.1);
+        font-size: 1.15rem; &:hover { background: $rm-sun; color: $rm-deep; } }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.12); font-size: .85rem; color: rgba(255,255,255,.65);
+        a { color: rgba(255,255,255,.8); } }
+}
+
+// ---------------------------------------------------------------
+// WhatsApp flottant + barre mobile de réservation
+// ---------------------------------------------------------------
+.wa-float { position: fixed; right: 1rem; bottom: 1rem; z-index: 1040; width: 3.6rem; height: 3.6rem; border-radius: 50%;
+    background: #25d366; color: #fff; display: grid; place-items: center; font-size: 1.85rem;
+    box-shadow: 0 12px 28px -8px rgba(0,0,0,.45); transition: transform .2s ease;
+    &:hover { transform: scale(1.07); color: #fff; }
+    @include media-breakpoint-down(lg) { bottom: 5.4rem; }
+}
+.mobile-book-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1035; display: flex; gap: .5rem; padding: .6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,.97); box-shadow: 0 -10px 30px -18px rgba($rm-deep, .6);
+    .btn { flex: 1; --bs-btn-padding-y: .75rem; }
+    .btn-call { flex: 0 0 auto; width: 3.25rem; padding-inline: 0; }
+}
+@include media-breakpoint-down(lg) { body { padding-bottom: 4.6rem; } }
+
+// ---------------------------------------------------------------
+// Divers
+// ---------------------------------------------------------------
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    * { scroll-behavior: auto !important; }
+}
+.legal-content { h2 { font-size: 1.4rem; margin-top: 2.25rem; } }
+.photo-credit { font-size: .75rem; color: $rm-muted; }
+.why-card.featured h3.h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+
+
+// ---------------------------------------------------------------
+// Mobile : anti-débordement mobile (NJIEZM). Les rangées .g-4/.g-5 ont une marge négative
+// (24 px) plus grande que le padding du conteneur (12 px) : la page faisait 402 px au lieu
+// de 390 et glissait latéralement. On plafonne la gouttière horizontale à 24 px sous 768 px.
+// ---------------------------------------------------------------
+@media (max-width: 767.98px) {
+    .row.g-5, .row.gx-5, .row.g-sm-5, .row.gx-sm-5 { --bs-gutter-x: 1.5rem; }
+}
+html { overflow-x: clip; }

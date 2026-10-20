@@ -1,0 +1,91 @@
+// ---------------------------------------------------------------
+// Le Roi Mongin — design tokens
+// Palette tirée du logo (bleu « Mongin », vague turquoise, couronne
+// jaune soleil), approfondie pour garantir les contrastes AA.
+// ---------------------------------------------------------------
+
+$rm-deep:    #062b4d;   // bleu nuit (textes, pied de page)
+$rm-ocean:   #0a568f;   // bleu du logo (liens, boutons secondaires)
+$rm-sky:     #2aa9e0;   // vague du logo
+$rm-lagoon:  #13b6c0;   // turquoise des fonds blancs (décors)
+$rm-lagoon-light: #d9f6f6;
+$rm-sun:     #ffc928;   // couronne du logo (bouton principal, texte foncé)
+$rm-sun-dark:#f0b400;
+$rm-coral:   #ff6f4f;
+$rm-sand:    #fff7e8;
+$rm-foam:    #f1fbfc;
+$rm-ink:     #0e2235;
+$rm-muted:   #4f6274;
+$rm-line:    #d8e7ee;
+
+$primary:   $rm-ocean;
+$secondary: $rm-deep;
+$info:      $rm-lagoon;
+$warning:   $rm-sun;
+$dark:      $rm-deep;
+$light:     $rm-foam;
+$success:   #13795b;
+
+$body-color:   $rm-ink;
+$body-bg:      #fff;
+$text-muted:   $rm-muted;
+$secondary-color: $rm-muted;
+$border-color: $rm-line;
+$link-color:   $rm-ocean;
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+$font-family-sans-serif: 'DM Sans Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$font-family-display:    'Bricolage Grotesque Variable', 'DM Sans Variable', system-ui, sans-serif;
+$headings-font-family:   $font-family-display;
+$headings-font-weight:   750;
+$headings-color:         $rm-deep;
+$headings-line-height:   1.08;
+$font-size-base:         1.0625rem;
+$line-height-base:       1.65;
+$lead-font-size:         1.2rem;
+$lead-font-weight:       400;
+
+$h1-font-size: 3.1rem;
+$h2-font-size: 2.4rem;
+$h3-font-size: 1.45rem;
+$h4-font-size: 1.2rem;
+
+$display-font-family: $font-family-display;
+$display-font-weight: 800;
+
+$border-radius:    1rem;
+$border-radius-sm: .6rem;
+$border-radius-lg: 1.5rem;
+$border-radius-xl: 2rem;
+$border-radius-pill: 50rem;
+
+$btn-padding-y:    .85rem;
+$btn-padding-x:    1.6rem;
+$btn-font-weight:  700;
+$btn-border-radius: $border-radius-pill;
+$btn-border-radius-lg: $border-radius-pill;
+$btn-border-radius-sm: $border-radius-pill;
+$btn-padding-y-lg: 1rem;
+$btn-padding-x-lg: 2rem;
+$btn-font-size-lg: 1.1rem;
+
+$input-padding-y: .8rem;
+$input-padding-x: 1rem;
+$input-border-color: #b9cfdb;
+$input-focus-border-color: $rm-ocean;
+$input-border-radius: .8rem;
+$form-label-font-weight: 600;
+
+$card-border-width: 0;
+$card-border-radius: $border-radius-lg;
+
+$accordion-button-active-bg: $rm-foam;
+$accordion-button-active-color: $rm-deep;
+$accordion-border-color: $rm-line;
+
+$navbar-nav-link-padding-x: .9rem;
+$offcanvas-horizontal-width: 320px;
+
+$min-contrast-ratio: 4.5;
+$enable-negative-margins: true;
